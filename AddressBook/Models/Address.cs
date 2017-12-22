@@ -11,5 +11,7 @@ namespace AddressBook.Models
         public int AddressID { get; set; }
         [Required]
         public string Description { get; set; }
+        public int PersonID { get; set; }
+        public Person Person { get; set; }
     }
 }

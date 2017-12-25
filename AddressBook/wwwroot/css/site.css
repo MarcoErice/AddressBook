@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Merienda One', cursive;    
 }
 
 /* Wrapping element */
@@ -32,4 +33,13 @@
     .carousel-caption {
         display: none;
     }
+}
+
+.navbar {
+    background-color: red
+}
+
+p2 {
+    color: red;
+    font-size: 50px
 }

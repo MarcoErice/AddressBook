@@ -44,7 +44,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PersonID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PersonID">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonID" asp-route-slug="@AddressBook.Utils.Slug.Slugify(item.FirstName + " " + item.LastName)">Details</a> |
                 <a asp-controller = "Addresses" asp-action="PersonBy" asp-route-id="@item.PersonID">Addresses</a> |
                 <a asp-action="Delete" asp-route-id="@item.PersonID">Delete</a>
             </td>

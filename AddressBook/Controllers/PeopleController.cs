@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AddressBook.Data;
 using AddressBook.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AddressBook.Controllers
 {
     public class PeopleController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<PeopleController> _logger;
 
-        public PeopleController(ApplicationDbContext context)
+        public PeopleController(ApplicationDbContext context, ILogger<PeopleController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: People
@@ -37,6 +40,7 @@ namespace AddressBook.Controllers
                 .SingleOrDefaultAsync(m => m.PersonID == id);
             if (person == null)
             {
+                _logger.LogWarning("Details: Could not find Person with ID=" + id.ToString());
                 return NotFound();
             }
 

@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AddressBook.Data;
 using AddressBook.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AddressBook.Controllers
 {
     public class AddressesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<AddressesController> _logger;
 
-        public AddressesController(ApplicationDbContext context)
+        public AddressesController(ApplicationDbContext context, ILogger<AddressesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Addresses
@@ -44,6 +47,7 @@ namespace AddressBook.Controllers
                 .SingleOrDefaultAsync(m => m.AddressID == id);
             if (address == null)
             {
+                _logger.LogWarning("Details: Could not find Address with ID=" + id.ToString());
                 return NotFound();
             }
 

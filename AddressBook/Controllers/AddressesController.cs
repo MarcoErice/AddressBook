@@ -30,8 +30,12 @@ namespace AddressBook.Controllers
         }
         public async Task<IActionResult> PersonBy(int? id)
         {
-            var applicationDbContext = _context.Addresses.Include(a => a.Person);
+            var applicationDbContext = _context.Addresses.Where(address => address.PersonID == id).Include(a => a.Person);
             return View(await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> IndexByPerson(int id)
+        {
+            return View("Index", await _context.Addresses.Where(address => address.PersonID == id).ToListAsync());
         }
 
         // GET: Addresses/Details/5
@@ -60,6 +64,11 @@ namespace AddressBook.Controllers
             ViewData["PersonID"] = new SelectList(_context.People, "PersonID", "Email");
             return View();
         }
+        public IActionResult CreateByPerson(int id)
+        {
+            Address newAddress = new Address { PersonID = id };
+            return View("Create", newAddress);
+        }
 
         // POST: Addresses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -72,7 +81,8 @@ namespace AddressBook.Controllers
             {
                 _context.Add(address);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexByPerson), new { id = address.PersonID });
             }
             ViewData["PersonID"] = new SelectList(_context.People, "PersonID", "Email", address.PersonID);
             return View(address);

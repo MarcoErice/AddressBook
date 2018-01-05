@@ -23,9 +23,15 @@ namespace AddressBook.Data
                 Phone = "076-213 59 21",
                 Email = "marco.erice@gmail.com"
             };
-            context.People.AddRange(
-                aPerson
-            );
+            var bPerson = new Person
+            {
+                FirstName = "Amin",
+                LastName = "Zare",
+                Phone = "070-123 45 67",
+                Email = "amin.zare@yahoo.com"
+            };
+            context.People.AddRange(aPerson);
+            context.People.AddRange(bPerson);
             //context.SaveChanges();
 
             // Look for any Addresses.

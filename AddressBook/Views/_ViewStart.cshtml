@@ -1,3 +1,12 @@
-﻿@{
-    Layout = "_Layout";    
+﻿@inject AddressBook.Interfaces.iTimeProvider myTimeProvider
+@{
+    if (myTimeProvider.Now.Year >= 2018 && myTimeProvider.Now.Month >= 2)
+    {
+        Layout = "_Layout20180201";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+
 }

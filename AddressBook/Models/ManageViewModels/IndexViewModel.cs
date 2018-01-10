@@ -19,6 +19,8 @@ namespace AddressBook.Models.ManageViewModels
         [Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
+        [Display(Name = "City of birth")]
+        public string CityOfBirth { get; set; }
 
         public string StatusMessage { get; set; }
     }

@@ -60,7 +60,8 @@ namespace AddressBook.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                CityOfBirth = user.CityOfBirth
             };
 
             return View(model);
@@ -100,6 +101,8 @@ namespace AddressBook.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
+            user.CityOfBirth = model.CityOfBirth;
+            await _userManager.UpdateAsync(user);
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));

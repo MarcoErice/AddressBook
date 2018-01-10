@@ -9,6 +9,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/site201802.css" />
         <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
     </environment>
@@ -56,7 +57,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - AddressBook</p>
+            <p>&copy; @myTimeProvider.Now.Year.ToString() - AddressBook New Layout</p>
             <p2>Merry Christmas and a Happy New Year!</p2>
         </footer>
     </div>

@@ -46,8 +46,8 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="" asp-action="">@myTimeProvider.Now.ToShortDateString()</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="AddOneMonth"></a>Add one month </li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="SubtractOneMonth"></a> Subtract one month</li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="AddOneMonth">Add one month</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="SubtractOneMonth">Subtract one month</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

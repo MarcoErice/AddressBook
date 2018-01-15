@@ -45,7 +45,7 @@ namespace AddressBook
             myFakeTimeProvider.Now = DateTime.Now;            
             services.AddSingleton<iTimeProvider>(myFakeTimeProvider);
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization(options => options.ResourcesPath = "");
             services.AddMvc()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
@@ -64,13 +64,29 @@ namespace AddressBook
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            //app.Use((stx, next) =>
+            //{
+            //    var cultureQuery = stx.Request.Query["culture"];
+            //    if (!string.IsNullOrWhiteSpace(cultureQuery))
+            //    {
+            //        var culture = new CultureInfo(cultureQuery);
+            //        CultureInfo.CurrentCulture = culture;
+            //        CultureInfo.CurrentUICulture = culture;
+            //    }
+            //    else
+            //    {
+            //        var culture = new CultureInfo("en-US");
+            //        CultureInfo.CurrentCulture = culture;
+            //        CultureInfo.CurrentUICulture = culture;
+            //    }
+            //    return next();
+            //});
             List<CultureInfo> supportedCultures = new List<CultureInfo>
             {
+                new CultureInfo("en-US"),
                 new CultureInfo("es-CL"),
                 new CultureInfo("es"),
-                new CultureInfo("sv"),
-                new CultureInfo("en")
+                new CultureInfo("sv")                
             };
 
             app.UseRequestLocalization(new RequestLocalizationOptions

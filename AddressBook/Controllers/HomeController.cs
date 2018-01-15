@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AddressBook.Models;
 using AddressBook.Interfaces;
+using Microsoft.Extensions.Localization;
+using AddressBook.Resources;
 
 namespace AddressBook.Controllers
 {
     public class HomeController : Controller
     {
         private iTimeProvider timeProvider;
-        public HomeController(iTimeProvider _timeProvider)
+        private readonly IStringLocalizer _Localizer;
+        public HomeController(iTimeProvider _timeProvider, IStringLocalizerFactory factory)
         {
             timeProvider = _timeProvider;
-        }
+            _Localizer = factory.Create(typeof(SharedResource));
+        }       
+       
         public IActionResult Index()
         {            
             return View();
@@ -30,7 +35,8 @@ namespace AddressBook.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            var currentThread = System.Threading.Thread.CurrentThread;
+            ViewData["Message"] = _Localizer["Welcome"];
 
             return View();
         }

@@ -1,4 +1,10 @@
 ﻿@inject AddressBook.Interfaces.iTimeProvider myTimeProvider
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Localization_Basic
+
+@inject IHtmlLocalizer<SharedResources> sharedLocalizer
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +59,13 @@
         </div>
     </nav>
     <div class="container body-content">
+        @*<div>
+            <a href="/?culture=es-CL" style="margin-right:16px;">Spansk</a>
+            <a href="/?culture=en" style="margin-right:16px;">Engelsk</a>
+        </div>*@
+        <div style="padding:12px;">
+            <h2>@sharedLocalizer["Welcome"]</h2>
+        </div>
         @RenderBody()
         <hr />
         <footer>

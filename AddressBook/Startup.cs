@@ -12,6 +12,8 @@ using AddressBook.Data;
 using AddressBook.Models;
 using AddressBook.Services;
 using AddressBook.Interfaces;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace AddressBook
 {
@@ -26,7 +28,8 @@ namespace AddressBook
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {           
+            
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -42,7 +45,10 @@ namespace AddressBook
             myFakeTimeProvider.Now = DateTime.Now;            
             services.AddSingleton<iTimeProvider>(myFakeTimeProvider);
 
-            services.AddMvc();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +64,21 @@ namespace AddressBook
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            List<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("es-CL"),
+                new CultureInfo("es"),
+                new CultureInfo("sv"),
+                new CultureInfo("en")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("es-CL"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseStaticFiles();
 

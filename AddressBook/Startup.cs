@@ -14,6 +14,10 @@ using AddressBook.Services;
 using AddressBook.Interfaces;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using AddressBook.Resources;
+using Microsoft.Extensions.Localization;
+using AddressBook.Controllers;
+using AddressBook.Localizers;
 
 namespace AddressBook
 {
@@ -46,10 +50,16 @@ namespace AddressBook
             services.AddSingleton<iTimeProvider>(myFakeTimeProvider);
 
             //services.AddLocalization(options => options.ResourcesPath = "");
+            services.AddTransient<IStringLocalizer<HomeController>, 
+                HomeStringLocalizer>();
             services.AddLocalization();
-            services.AddMvc();
-                //.AddViewLocalization()
-                //.AddDataAnnotationsLocalization();
+            services.AddMvc()
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                });
+            //.AddViewLocalization()
+            //.AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

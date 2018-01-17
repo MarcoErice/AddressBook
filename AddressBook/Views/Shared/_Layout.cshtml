@@ -1,8 +1,12 @@
 ﻿@inject AddressBook.Interfaces.iTimeProvider myTimeProvider
 
-@*@inject IStringLocalizer<SharedResource> sharedLocalizer
-@using Microsoft.AspNetCore.Mvc.Localization
-@using AddressBook.Resources*@
+@inject Microsoft.Extensions.Localization.IStringLocalizerFactory Factory
+@{
+        var localizer = Factory.Create(typeof(AddressBook.Resources.SharedResource));
+}
+@*@inject IStringLocalizer<SharedResource> sharedLocalizer*@
+@*@using Microsoft.AspNetCore.Mvc.Localization
+    @using AddressBook.Resources*@
 
 <!DOCTYPE html>
 <html>
@@ -64,7 +68,7 @@
             <a href="/?culture=se-SE" style="margin-right:16px;">Svenska</a>
         </div>
         <div style="padding:12px;">
-            @*<h2>@sharedLocalizer["Welcome"]</h2>*@
+            @*<h2>@localizer["Welcome"]</h2>*@
         </div>
         @RenderBody()
         <hr />

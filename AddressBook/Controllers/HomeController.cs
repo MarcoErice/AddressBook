@@ -16,7 +16,10 @@ namespace AddressBook.Controllers
         private iTimeProvider timeProvider;
         private readonly IStringLocalizerFactory factory;
         private readonly IStringLocalizer Localizer;
-        public HomeController(iTimeProvider _timeProvider, IStringLocalizerFactory factory)
+        private readonly IStringLocalizer<HomeController> homeLocalizer;
+        public HomeController(iTimeProvider _timeProvider, 
+            IStringLocalizerFactory factory, 
+            IStringLocalizer<HomeController> homeLocalizer)
         {
             timeProvider = _timeProvider;
             this.factory = factory;
@@ -41,6 +44,12 @@ namespace AddressBook.Controllers
             ViewData["Message"] = Localizer["Welcome"];
 
             return View();
+        }
+
+        public IActionResult Cool()
+        {
+            CoolViewModel m = new CoolViewModel { CoolMessage = "Really nice message!" };
+            return View(m);
         }
 
         public IActionResult Error()

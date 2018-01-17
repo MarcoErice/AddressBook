@@ -23,6 +23,7 @@ namespace AddressBook.Controllers
         {
             timeProvider = _timeProvider;
             this.factory = factory;
+            this.homeLocalizer = homeLocalizer;
             Localizer = factory.Create(typeof(SharedResource));
         }       
        
@@ -41,7 +42,7 @@ namespace AddressBook.Controllers
         public IActionResult Contact()
         {
             //var currentThread = System.Threading.Thread.CurrentThread;
-            ViewData["Message"] = Localizer["Welcome"];
+            ViewData["Message"] = homeLocalizer["Welcome"];
 
             return View();
         }

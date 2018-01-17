@@ -10,6 +10,13 @@ namespace AddressBook.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
+            context.Translations.Add(
+                new Translation
+                {
+                    CultureCode = "es-CL",
+                    Term = "About",
+                    TranslatedTerm = "Sobre mi aplicación."
+                });
             // Look for any People.
             if (context.People.Any())
             {

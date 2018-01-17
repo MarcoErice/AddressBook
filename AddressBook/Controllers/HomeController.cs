@@ -34,7 +34,7 @@ namespace AddressBook.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = Localizer["About"];
+            ViewData["Message"] = homeLocalizer["About"];
 
             return View();
         }

@@ -49,9 +49,11 @@ namespace AddressBook
             myFakeTimeProvider.Now = DateTime.Now;            
             services.AddSingleton<iTimeProvider>(myFakeTimeProvider);
 
+            services.AddTransient<IStringLocalizer<HomeController>,DbLocalizer>();
+
             //services.AddLocalization(options => options.ResourcesPath = "");
-            services.AddTransient<IStringLocalizer<HomeController>, 
-                HomeStringLocalizer>();
+            //services.AddTransient<IStringLocalizer<HomeController>,
+            //    HomeStringLocalizer>();
             services.AddLocalization();
             services.AddMvc()
                 .AddDataAnnotationsLocalization(options => {

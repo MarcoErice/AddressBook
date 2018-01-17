@@ -45,10 +45,11 @@ namespace AddressBook
             myFakeTimeProvider.Now = DateTime.Now;            
             services.AddSingleton<iTimeProvider>(myFakeTimeProvider);
 
-            services.AddLocalization(options => options.ResourcesPath = "");
-            services.AddMvc()
-                .AddViewLocalization()
-                .AddDataAnnotationsLocalization();
+            //services.AddLocalization(options => options.ResourcesPath = "");
+            services.AddLocalization();
+            services.AddMvc();
+                //.AddViewLocalization()
+                //.AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +65,14 @@ namespace AddressBook
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.Use((request, next) =>
+            {
+                var es = new CultureInfo("es-CL");
+                System.Threading.Thread.CurrentThread.CurrentCulture = es;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = es;
+                return next();
+            });
             //app.Use((stx, next) =>
             //{
             //    var cultureQuery = stx.Request.Query["culture"];
@@ -75,26 +84,26 @@ namespace AddressBook
             //    }
             //    else
             //    {
-            //        var culture = new CultureInfo("en-US");
+            //        var culture = new CultureInfo("sv-SE");
             //        CultureInfo.CurrentCulture = culture;
             //        CultureInfo.CurrentUICulture = culture;
             //    }
             //    return next();
             //});
-            List<CultureInfo> supportedCultures = new List<CultureInfo>
-            {
-                new CultureInfo("en-US"),
-                new CultureInfo("es-CL"),
-                new CultureInfo("es"),
-                new CultureInfo("sv")                
-            };
+            //List<CultureInfo> supportedCultures = new List<CultureInfo>
+            //{
+            //    new CultureInfo("en-US"),
+            //    new CultureInfo("es-CL"),
+            //    new CultureInfo("es"),
+            //    new CultureInfo("sv")                
+            //};
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("es-CL"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            //app.UseRequestLocalization(new RequestLocalizationOptions
+            //{
+            //    DefaultRequestCulture = new RequestCulture("es-CL"),
+            //    SupportedCultures = supportedCultures,
+            //    SupportedUICultures = supportedCultures
+            //});
 
             app.UseStaticFiles();
 
